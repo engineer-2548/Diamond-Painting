@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ภาพพระบรมฉายาลักษณ์ Diamond Painting | นักเรียนการศึกษาพิเศษ กทม.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Charm:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Sarabun', sans-serif;
+        }
+        
+        .font-charm {
+            font-family: 'Charm', cursive;
+        }
+        
+        :root {
+            --gold: #FFD700;
+            --royal-gold: #FFA500;
+            --royal-purple: #663399;
+            --royal-blue: #4169E1;
+        }
+        
+        body {
+            overflow-x: hidden;
+            background: #000;
+        }
+        
+        .royal-gradient {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--royal-gold) 50%, var(--royal-purple) 100%);
+        }
+        
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .diamond-sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+        
+        .crystal-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2),
+                        inset 0 0 20px rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .crystal-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+        }
+        
+        .floating-diamond {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFF);
+            transform: rotate(45deg);
+            animation: float 10s ease-in-out infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(45deg); }
+            50% { transform: translateY(-30px) rotate(225deg); }
+        }
+        
+        .number-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .glow-box {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3),
+                        0 0 60px rgba(255, 215, 0, 0.2),
+                        0 0 90px rgba(255, 215, 0, 0.1);
+        }
+        
+        .royal-text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                         0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(#000, #000) padding-box,
+                        linear-gradient(135deg, var(--gold), var(--royal-gold), var(--royal-purple)) border-box;
+            border: 3px solid transparent;
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4); }
+        }
+        
+        .zoom-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .zoom-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), var(--royal-purple));
+            transform: translateX(-50%);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid #000;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .dark-mode {
+            background: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .crystal-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+        
+        .marquee {
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 30s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+        }
+        
+        .hero-image img {
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <!-- Floating Diamonds Background -->
+    <div id="diamonds-bg"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="darkToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full crystal-card hover:scale-110 transition-transform">
+        <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+            <path id="sunIcon" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+            <path id="moonIcon" class="hidden" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+    </button>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h1 class="text-4xl md:text-6xl font-bold font-charm mb-4">
+                    <span class="text-gradient-gold royal-text-shadow">ภาพพระบรมฉายาลักษณ์</span>
+                </h1>
+                <h2 class="text-3xl md:text-5xl font-bold text-gradient-gold mb-6">
+                    ในหลวง – พระราชินี
+                </h2>
+                <p class="text-xl md:text-2xl mb-4 text-gray-300">
+                    ผลงานสุดประณีตจากหัวใจนักเรียนการศึกษาพิเศษ
+                </p>
+                <div class="inline-block crystal-card p-6 rounded-2xl glow-box">
+                    <p class="text-2xl md:text-3xl font-bold text-gradient-gold">
+                        Diamond Painting
+                    </p>
+                    <p class="text-4xl md:text-5xl font-black mt-2">
+                        <span class="number-counter" data-target="1700000">0</span>
+                        <span class="text-gradient-gold">เม็ด</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Hero Image -->
+            <div class="max-w-4xl mx-auto mb-16 reveal">
+                <div class="hero-image gradient-border">
+                    <img src="https://lh5.googleusercontent.com/d/1yLj_n0o0fq1Bj8zYzKRJ6EjJXa-dMg3H" 
+                         alt="Diamond Painting พระบรมฉายาลักษณ์" 
+                         class="w-full h-auto"
+                         onload="this.style.opacity='1'"
+                         style="opacity: 0; transition: opacity 1s;">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="stats-grid">
+                <div class="stat-card crystal-card zoom-hover reveal">
+                    <div class="text-5xl font-bold text-gradient-gold number-counter" data-target="3">0</div>
+                    <div class="text-xl mt-2">x</div>
+                    <div class="text-5xl font-bold text-gradient-gold number-counter" data-target="5">0</div>
+                    <div class="text-xl mt-2">เมตร</div>
+                </div>
+                <div class="stat-card crystal-card zoom-hover reveal">
+                    <div class="text-5xl font-bold text-gradient-gold number-counter" data-target="19">0</div>
+                    <div class="text-xl mt-2">โรงเรียน</div>
+                </div>
+                <div class="stat-card crystal-card zoom-hover reveal">
+                    <div class="text-5xl font-bold text-gradient-gold number-counter" data-target="200">0</div>
+                    <div class="text-xl mt-2">นักเรียน</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="crystal-card p-8 md:p-12 rounded-3xl reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gradient-gold mb-8 text-center">
+                        Diamond Painting คืออะไร?
+                    </h2>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-300 mb-6">
+                        Diamond Painting คือศิลปะ DIY ที่ใช้เม็ดคริสตัลหรือเพชรเรซิ่นเล็ก ๆ ติดตามแบบแผนที่มีรหัสสี 
+                        คล้ายกับการปัก แต่เปลี่ยนไหมเป็นเพชร! ฝึกทั้งสมาธิ ความอดทน ความตั้งใจ รวมถึงการทำงานร่วมกันเป็นทีม
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6 mt-8">
+                        <div class="p-6 rounded-xl bg-black/50 border border-yellow-500/30">
+                            <h3 class="text-xl font-bold text-yellow-400 mb-3">ขนาดผลงาน</h3>
+                            <p class="text-gray-300">ภาพขนาด 3 x 5 เมตร แบ่งเป็นภาพย่อยขนาด 40 x 50 ซม.</p>
+                        </div>
+                        <div class="p-6 rounded-xl bg-black/50 border border-yellow-500/30">
+                            <h3 class="text-xl font-bold text-yellow-400 mb-3">จำนวนคริสตัล</h3>
+                            <p class="text-gray-300">รวมกว่า 1.7 ล้านเม็ด ทุกเม็ดคือพลังแห่งความพยายาม</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Purpose Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-gradient-gold mb-12 text-center reveal">
+                จุดประสงค์ของกิจกรรม
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="crystal-card p-8 rounded-2xl zoom-hover reveal">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">ส่งเสริมความสามารถเฉพาะบุคคล</h3>
+                    <p class="text-gray-300">นักเรียนที่มีความต้องการพิเศษมักมีศักยภาพเฉพาะด้านที่โดดเด่น กิจกรรมครอสติช คริสตัลช่วยให้นักเรียนได้แสดงออกถึงความสามารถเหล่านี้อย่างเป็นรูปธรรม</p>
+                </div>
+                <div class="crystal-card p-8 rounded-2xl zoom-hover reveal">
+                    <div class="text-3xl mb-4">🧘</div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">พัฒนาทักษะสมาธิและความอดทน</h3>
+                    <p class="text-gray-300">การจัดวางคริสตัลต้องใช้ความตั้งใจ ความประณีต และการมุ่งมั่น ซึ่งส่งผลดีต่อพฤติกรรมและการควบคุมตนเอง</p>
+                </div>
+                <div class="crystal-card p-8 rounded-2xl zoom-hover reveal">
+                    <div class="text-3xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">ฝึกการทำงานเป็นทีมและความรับผิดชอบ</h3>
+                    <p class="text-gray-300">การทำงานร่วมกันในกลุ่ม ส่งเสริมให้เด็กเรียนรู้การสื่อสาร การช่วยเหลือกัน และสร้างสัมพันธภาพที่ดี</p>
+                </div>
+                <div class="crystal-card p-8 rounded-2xl zoom-hover reveal">
+                    <div class="text-3xl mb-4">💼</div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-3">สร้างโอกาสในการเรียนรู้อาชีพ</h3>
+                    <p class="text-gray-300">เด็กสามารถนำทักษะการทำครอสติชไปต่อยอดเป็นสินค้าแฮนด์เมด จำหน่ายในตลาด สร้างรายได้อย่างยั่งยืนในอนาคต</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exhibition Info -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="crystal-card p-8 md:p-12 rounded-3xl text-center reveal glow-box">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gradient-gold mb-6">
+                        ชมผลงานจริง
+                    </h2>
+                    <div class="space-y-4 text-xl md:text-2xl">
+                        <p class="flex items-center justify-center gap-3">
+                            <span class="text-yellow-400">📅</span>
+                            <span>24 ก.ค. – 3 ส.ค. 2568</span>
+                        </p>
+                        <p class="flex items-center justify-center gap-3">
+                            <span class="text-yellow-400">📍</span>
+                            <span>หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร (BACC)</span>
+                        </p>
+                        <div class="mt-8 inline-block">
+                            <div class="royal-gradient text-black px-8 py-4 rounded-full font-bold text-xl pulse-glow">
+                                🎟️ เข้าชมฟรี ไม่มีค่าใช้จ่าย
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Hashtags Marquee -->
+    <section class="py-10 crystal-card">
+        <div class="marquee">
+            <div class="marquee-content text-xl font-bold text-gradient-gold">
+                #กทม #กรุงเทพมหานคร #Bangkokbma #กรุงเทพดีได้ทุกด้าน #9ด้าน9ดี #เรียนดี #ครอสสติตช์คริสตัล #โรงเรียนกทมเปลี่ยนไปแล้ว #ห้องเรียนยุคใหม่ #กทมเรียนฟรีมีคุณภาพ
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-400">
+        <p>© 2568 กรุงเทพมหานคร - Bangkok Metropolitan Administration</p>
+    </footer>
+    
+    <script>
+        // Create floating diamonds
+        function createDiamond() {
+            const diamond = document.createElement('div');
+            diamond.className = 'floating-diamond';
+            diamond.style.left = Math.random() * 100 + '%';
+            diamond.style.top = Math.random() * 100 + '%';
+            diamond.style.animationDelay = Math.random() * 10 + 's';
+            diamond.style.animationDuration = 10 + Math.random() * 20 + 's';
+            document.getElementById('diamonds-bg').appendChild(diamond);
+        }
+        
+        // Create multiple diamonds
+        for (let i = 0; i < 20; i++) {
+            createDiamond();
+        }
+        
+        // Create sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'diamond-sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 3000);
+        }
+        
+        setInterval(createSparkle, 200);
+        
+        // Number counter animation
+        function animateNumber(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+        
+        // Reveal animation on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate numbers when revealed
+                    const counters = entry.target.querySelectorAll('.number-counter');
+                    counters.forEach(counter => animateNumber(counter));
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        reveals.forEach(reveal => {
+            revealObserver.observe(reveal);
+        });
+        
+        // Dark mode toggle
+        const darkToggle = document.getElementById('darkToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        darkToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                document.body.style.background = '#1a1a1a';
+            } else {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                document.body.style.background = '#000';
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Parallax effect for diamonds
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const diamonds = document.querySelectorAll('.floating-diamond');
+            
+            diamonds.forEach((diamond, index) => {
+                const speed = 0.5 + (index * 0.1);
+                diamond.style.transform = `translateY(${scrolled * speed}px) rotate(${45 + scrolled * 0.2}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
